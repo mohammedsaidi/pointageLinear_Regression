@@ -1,47 +1,50 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+cd '/content/drive/MyDrive/test script/pythondatabase'
+
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+from sklearn import linear_model
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Read the Excel file
-df = pd.read_excel('pointage_Linear_Regression.xlsx')
-print(df)
+folders=['pointage_Linear_Regression.xlsx']
+folder_combine=pd.DataFrame()
+for folder in folders:
+  df=pd.read_excel(folder)
+  print(df)
 
-# Descriptive scatter plots
-plt.figure(figsize=(10, 5))
-
-plt.subplot(1, 2, 1)
-plt.scatter(df['Industrial_Products'], df['Agricultural_Products'], color='red')
-plt.title('Industrial vs Agricultural Products', fontsize=14)
-plt.xlabel('Industrial Products', fontsize=14)
-plt.ylabel('Agricultural Products', fontsize=14)
+plt.scatter(df['JP'], df['JA'], color='red')
+plt.title('JP Vs JA', fontsize=14)
+plt.xlabel('JP', fontsize=14)
+plt.ylabel('JA', fontsize=14)
 plt.grid(True)
-
-plt.subplot(1, 2, 2)
-plt.scatter(df['Industrial_Products'], df['Construction_Products'], color='green')
-plt.title('Industrial vs Construction Products', fontsize=14)
-plt.xlabel('Industrial Products', fontsize=14)
-plt.ylabel('Construction Products', fontsize=14)
-plt.grid(True)
-
-plt.tight_layout()
 plt.show()
 
-# Prepare data for regression
-X = df[['Construction_Products','Agricultural_Products']]
-y = df['Industrial_Products']
+plt.scatter(df['JP'], df['JC'], color='green')
+plt.title('JP Vs JC', fontsize=14)
+plt.xlabel('JP', fontsize=14)
+plt.ylabel('JC', fontsize=14)
+plt.grid(True)
+plt.show()
 
-# Linear Regression with scikit-learn
-sklearn_model = LinearRegression()
-sklearn_model.fit(X, y)
+x = df[['JC','JA']]
+y = df['JP']
 
-print('sklearn Model:")
-print('Intercept: \n', sklearn_model.intercept_)
-print('Coefficients: \n', sklearn_model.coef_)
+# with sklearn
+regr = linear_model.LinearRegression()
+regr.fit(x, y)
 
-# Linear Regression with statsmodels
-model = sm.OLS(y, X).fit()
-predictions = model.predict(X)
+print('Intercept: \n', regr.intercept_)
+print('Coefficients: \n', regr.coef_)
 
-print("\nstatsmodels Model Summary:")
-print(model.summary())
+# with statsmodels
+x = sm.add_constant(x) # adding a constant
+
+model = sm.OLS(y, x).fit()
+predictions = model.predict(x)
+
+print_model = model.summary()
+print(print_model)
