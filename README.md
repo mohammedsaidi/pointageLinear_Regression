@@ -21,8 +21,9 @@ Visualisation des données :
 
 Création de deux graphiques de dispersion (scatter plots) :
 
-JP vs JA
-JP vs JC
+JP ( Jours de présence )vs JA ( Jours d'absence )
+
+JP ( Jours de présence )  vs JC ( Jours de congé) 
 
 
 
@@ -41,4 +42,5 @@ Affichage d'un résumé du modèle statistique
 
 
 
-En résumé, ce code effectue une analyse de régression linéaire sur des données qui semblent être liées à des pointages ou des mesures (JP, JA, JC). Il visualise les relations entre ces variables et tente de prédire JP en fonction de JC et JA.
+En résumé, ce code effectue une analyse de régression linéaire sur des données qui semblent être liées à des pointages ou des mesures (JP ( Jours de présence ), JA ( Jours d'absence )
+, JC ( Jours de congé)). Il visualise les relations entre ces variables et tente de prédire JP en fonction de JC et JA.
